@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc -b",
+    "start": "npx tsc -b && node dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,23 @@
   "bugs": {
     "url": "https://github.com/amitpatel-wstf/Multichain-Indexer/issues"
   },
-  "homepage": "https://github.com/amitpatel-wstf/Multichain-Indexer#readme"
+  "homepage": "https://github.com/amitpatel-wstf/Multichain-Indexer#readme",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "big.js": "^6.2.2",
+    "bull": "^4.16.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "kafkajs": "^2.2.4",
+    "kafkajs-lz4": "^1.2.1",
+    "mongoose": "^8.10.0",
+    "redis": "^4.7.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/big.js": "^6.2.2",
+    "@types/bull": "^3.15.9",
+    "@types/express": "^5.0.0",
+    "@types/ws": "^8.5.14"
+  }
 }
