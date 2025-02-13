@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-interface IToken extends Document {
+export interface ITokenBase extends Document {
   priceInUSD: number;
   priceInNative: number;
   ethPriceUSD: number;
@@ -56,9 +56,9 @@ const TokenSchema1: Schema = new Schema({
 
 export function getBaseTokenModel(chainName:string){
   // create index for address
-  return mongoose.model<IToken>(`${chainName}Token`, TokenSchema);
+  return mongoose.model<ITokenBase>(`${chainName}Token`, TokenSchema);
 }
 
 export function getBaseTokenTradeModel(chainName:string,time:string){
-  return mongoose.model<IToken>(`${chainName}TokenTrade${time}`, TokenSchema1);
+  return mongoose.model<ITokenBase>(`${chainName}TokenTrade${time}`, TokenSchema1);
 }

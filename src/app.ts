@@ -6,11 +6,21 @@ import mongoose from "mongoose";
 import config from "./config";
 import { WebSocketServices } from "./utils/WebSocketServices/WebSockerServices";
 import { CronJob } from "./utils/Cron-Job/CronJob";
+import { getBalanceService } from "./services";
 
-mongoose.connect(config.mongoUrl).then(()=>console.log("MongoDB connected")).catch((err)=>console.log(err));
-startServer();
-QueueServices.startTradeQueue()
-ConsumerServices.runConsumers();
-RedisServices.connect();
-WebSocketServices.StartSocket();
-CronJob.start()
+async function main(){
+    await mongoose.connect(config.mongoUrl).then(()=>console.log("MongoDB connected")).catch((err)=>console.log(err));
+    // START THE NODE JS SERVER
+    startServer();
+    // START THE TRADE QUEUE
+    QueueServices.startTradeQueue()
+    // RUN THE CONSUMERS
+    ConsumerServices.runConsumers();
+    // CONNECT TO REDIS
+    RedisServices.connect();
+    WebSocketServices.StartSocket();
+    getBalanceService().Initialize();
+    CronJob.start()
+}
+
+main(); 

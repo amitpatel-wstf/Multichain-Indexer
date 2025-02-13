@@ -6,10 +6,8 @@ import { RedisServices } from "../../utils/RedisServices/RedisServices";
 import config from "../../config";
 import axios from "axios";
 
-export class BalanceServices {
+export class BaseBalanceServices {
     static Hash = new Map<string, any>();
-
-    static SOL_TOKEN_ADDRESS = "So11111111111111111111111111111111111111112";
     static BASE_USER_MODEL = getTokenModel();
     static USER_BALANCE_MODEL = getUserBalanceModel();
     static ETH_TOKEN_ADDRESS = "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
@@ -21,7 +19,7 @@ export class BalanceServices {
             const allUsers = await this.BASE_USER_MODEL.find({});
             console.log("All Users ===>",allUsers?.length);
             for(const user of allUsers){
-                // this.Hash.set(user?.address?.toLowerCase(),{address:user?.address,balances:user?.balances});
+                this.Hash.set(user?.address?.toLowerCase(),{address:user?.address,balances:user?.balances});
             }
             RedisServices.balanceClient.set('AllUsers', JSON.stringify(this.Hash));
 
@@ -176,14 +174,7 @@ export class BalanceServices {
         }
     }
 
-    static async deleteUserByAddress(address:string){
-        try {
-            const user = await this.USER_BALANCE_MODEL.findOneAndDelete({address : {$regex : new RegExp(address,'i')}});
-            console.log("User deleted ===>",user);
-        } catch (error) {
-            console.error("Error in deleteUserByAddress:", address, error);
-        }
-    }
+
 
     /**
      * Processes addresses missing in the in-memory cache.

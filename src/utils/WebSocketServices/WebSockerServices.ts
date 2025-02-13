@@ -8,7 +8,7 @@ export class WebSocketServices{
     static ws: any = this.initializeWebSocket();
 
     static initializeWebSocket(){
-        return new WebSocket("https://streaming.bitquery.io/eap", ["graphql-ws"], {
+        return new WebSocket("https://streaming.bitquery.io/graphql", ["graphql-ws"], {
             headers: {
                 "Content-Type": "application/json",
                 "X-API-KEY": process.env.BIT_QUERY_API_KEY, //process.env.BITQUERY_API_KEY,
@@ -40,6 +40,10 @@ export class WebSocketServices{
                     // console.log("Parsed Data ==>" ,parsedData.data);
                     if (parsedData?.data?.EVM) {
                         const balanceUpdates = parsedData.data.EVM.BalanceUpdates;
+                        console.log("balanceUpdates==>",balanceUpdates?.length);
+                        getBalanceService().StartProcessingBalanceUpdates(balanceUpdates);
+                    }else if(parsedData?.data?.Solana){
+                        const balanceUpdates = parsedData.data.Solana.BalanceUpdates;
                         console.log("balanceUpdates==>",balanceUpdates?.length);
                         getBalanceService().StartProcessingBalanceUpdates(balanceUpdates);
                     }

@@ -3,6 +3,7 @@ import { RedisServices } from '../RedisServices/RedisServices';
 import { getTokenModel, getTokenTradeModel } from '../../models';
 
 export class QueueServices {
+    // redis config
     static redisConfig = {
         host: '127.0.0.1', // Redis host
         port: 6379,        // Redis port
@@ -16,7 +17,6 @@ export class QueueServices {
         if(!this.tradeQueue){
             this.tradeQueue = new Queue('tradeQueue', { redis: this.redisConfig });
         }
-        console.log("tradeQueue==>", this.tradeQueue);
         QueueServices.StartQueueProcessing(this.tradeQueue);
     }
 

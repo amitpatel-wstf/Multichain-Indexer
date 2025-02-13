@@ -140,17 +140,23 @@ export class BaseChainService {
         }
       }
       
-      static fetchPriceInUSD = async (tokenAddress:string) => {
-        try {
-            const url = `https://api.geckoterminal.com/api/v2/simple/networks/base/token_price/${tokenAddress}`
-            const response = await axios.get(url);
-            console.log(response?.data?.data?.attributes?.token_prices[tokenAddress]);
-            this.ETHPriceInUSD = response?.data?.data?.attributes?.token_prices[tokenAddress];
-            return response?.data?.data?.attributes?.token_prices[tokenAddress];
-        } catch (error) {
-          console.error(`Error fetching price for ${tokenAddress} in USD:`, error);
-          return 0;
-        }
-      };
+    static fetchPriceInUSD = async (tokenAddress:string) => {
+      try {
+          const url = `https://api.geckoterminal.com/api/v2/simple/networks/base/token_price/${tokenAddress}`
+          const response = await axios.get(url);
+          console.log(response?.data?.data?.attributes?.token_prices[tokenAddress]);
+          this.ETHPriceInUSD = response?.data?.data?.attributes?.token_prices[tokenAddress];
+          return response?.data?.data?.attributes?.token_prices[tokenAddress];
+      } catch (error) {
+        console.error(`Error fetching price for ${tokenAddress} in USD:`, error);
+        return 0;
+      }
+    };
+
+    // update user by address
+    async updateUserByAddress(address:string, balances:any){
+      console.log("address==>",address);
+      console.log("balances==>",balances);
+    }
 
 }

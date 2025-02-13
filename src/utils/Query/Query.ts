@@ -2,7 +2,7 @@ export const query = {
     BALANCE_UPDATE_SOL :`
     subscription {
         Solana {
-            BalanceUpdates {
+            BalanceUpdates{
                 BalanceUpdate {
                     Account {
                         Owner
@@ -15,7 +15,7 @@ export const query = {
                         Symbol
                         Native
                         Name
-                    }update
+                    }
                     PostBalance
                     PreBalance
                 }
@@ -54,6 +54,9 @@ export const query = {
 export function getBalanceUpdateQuery(chainName: string){
     if(chainName === "solana"){
         return query.BALANCE_UPDATE_SOL;
+    }
+    if(chainName === "base"){
+        return query.BALANCE_UPDATE_BASE;
     }
     return query.BALANCE_UPDATE_BASE;
 }

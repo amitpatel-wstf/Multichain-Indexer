@@ -1,4 +1,4 @@
-import { BaseChainService } from "./BaseChainService";
+import { BaseChainService } from "./BaseService";
 
 export interface IBaseChainServices {
   // Static properties

@@ -1,14 +1,18 @@
 import config from "../config";
-import { BalanceServices } from "./base/BalanceServices";
-import { BaseChainService } from "./base/BaseChainService";
+import { BaseBalanceServices } from "./base/BalanceServices";
+import { BaseChainService } from "./base/BaseService";
 import { BaseTokenService } from "./base/TokenServices";
+import { SolanaUserServices } from "./base/UserServices";
+import { SolanaBalanceServices } from "./solana/BalanceServices";
+import { SolanaServices } from "./solana/SolanaService";
+import { BaseUserServices } from "./solana/UserServices";
 
-export function getBaseService() {
+export function getBaseService() : any {
     switch (config.chainName?.toLowerCase()) {
         case "base":
             return BaseChainService;
         case "solana":
-            return BaseChainService;
+            return SolanaServices;
         default:
             return BaseChainService;
     }
@@ -17,11 +21,11 @@ export function getBaseService() {
 export function getBalanceService(){
     switch (config.chainName?.toLowerCase()) {
         case "base":
-            return BalanceServices;
+            return BaseBalanceServices;
         case "solana":
-            return BalanceServices;
+            return SolanaBalanceServices;
         default:
-            return BalanceServices;
+            return BaseBalanceServices;
     }
 }
 
@@ -31,5 +35,27 @@ export function getTokenService(){
             return BaseTokenService;
         default:
             return BaseTokenService;
+    }
+}
+
+export function getUserBalanceService(){
+    switch (config.chainName?.toLowerCase()) {
+        case "base":
+            return BaseBalanceServices;
+        case "solana":
+            return SolanaBalanceServices
+        default:
+            return BaseBalanceServices;
+    }
+}
+
+export function getUserServices () : any {
+    switch(config.chainName?.toLowerCase()){
+        case "base" :
+            return BaseUserServices;
+        case "solana":
+            return SolanaUserServices;
+        default:
+            return BaseUserServices;
     }
 }
