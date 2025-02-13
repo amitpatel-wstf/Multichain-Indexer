@@ -1,5 +1,5 @@
 import config from "../config";
-import { getBaseTokenModel } from "./Base/TokenSchema";
+import { getBaseTokenModel, getBaseTokenTradeModel } from "./Base/TokenSchema";
 import { UserBalance } from "./Base/UserBalancesSchema";
 
 export function getTokenModel(){
@@ -9,6 +9,16 @@ export function getTokenModel(){
         // case "solana":
         default:
             return getBaseTokenModel("base");
+    }
+}
+
+export function getTokenTradeModel(time:string){
+    switch(config.chainName?.toLowerCase()){
+        case "base":
+            return getBaseTokenTradeModel("base",time);
+        // case "solana":
+        default:
+            return getBaseTokenTradeModel("base",time);
     }
 }
 

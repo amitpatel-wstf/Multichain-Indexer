@@ -1,6 +1,6 @@
 import Queue from 'bull'
 import { RedisServices } from '../RedisServices/RedisServices';
-import { getTokenModel } from '../../models';
+import { getTokenModel, getTokenTradeModel } from '../../models';
 
 export class QueueServices {
     static redisConfig = {
@@ -10,6 +10,7 @@ export class QueueServices {
 
     static tradeQueue = new Queue('tradeQueue', { redis: this.redisConfig });
     static tokenModel = getTokenModel();
+    static tokenTradeModel = getTokenTradeModel("");
 
     static startsQueues(){
         if(!this.tradeQueue){
@@ -33,6 +34,7 @@ export class QueueServices {
         this.tradeQueue.on('failed', (job: any, err: any) => {
             console.error(`Job ${job.id} failed with error:`, err.message);
         });
+        console.log("tradeQueue==> started");
     }
 
     static StartQueueProcessing(queue: any){
@@ -57,7 +59,8 @@ export class QueueServices {
             await RedisServices.updateLatestTradeInRedis(tempArr2);
             // updateTradeInRedis(tempArr2); // Uncomment if needed
             await QueueServices.tokenModel.bulkWrite(tempArr);
-            // TokenService.insertTokenTradeData(tempArr2);
+
+            await QueueServices.tokenTradeModel.insertMany(tempArr2);
             return { success: true, message: "Job processed successfully" };
         } catch (error) {
             console.error("Error processing job:", error);

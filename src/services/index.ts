@@ -1,6 +1,7 @@
 import config from "../config";
 import { BalanceServices } from "./base/BalanceServices";
 import { BaseChainService } from "./base/BaseChainService";
+import { BaseTokenService } from "./base/TokenServices";
 
 export function getBaseService() {
     switch (config.chainName?.toLowerCase()) {
@@ -21,5 +22,14 @@ export function getBalanceService(){
             return BalanceServices;
         default:
             return BalanceServices;
+    }
+}
+
+export function getTokenService(){
+    switch (config.chainName?.toLowerCase()) {
+        case "base":
+            return BaseTokenService;
+        default:
+            return BaseTokenService;
     }
 }

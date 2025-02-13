@@ -28,6 +28,7 @@
     "kafkajs": "^2.2.4",
     "kafkajs-lz4": "^1.2.1",
     "mongoose": "^8.10.0",
+    "node-cron": "^3.0.3",
     "redis": "^4.7.0",
     "ws": "^8.18.0"
   },
@@ -35,6 +36,8 @@
     "@types/big.js": "^6.2.2",
     "@types/bull": "^3.15.9",
     "@types/express": "^5.0.0",
+    "@types/luxon": "^3.4.2",
+    "@types/node-cron": "^3.0.11",
     "@types/ws": "^8.5.14"
   }
 }
